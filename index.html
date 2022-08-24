@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <style>
+        #forms >div >input {
+            display: block
+        }
+
+        #navbar{
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #navbar >div{
+            height: 50px;
+            width: 60px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+
+        <div> Home</div>
+        <div>Dashboard</div>
+        <div>My Books</div>
+        <div>Bookmark</div>
+    </div>
+
+
+
+    <div id="forms">
+        <div>
+        <h4>Library Managemenet System</h4>
+           <input type="text" id="name" placeholder="Book Name">
+           
+           <input type="text" id="author" placeholder="Author Name">
+           
+           <input type="text" id="description" placeholder="Book Description">
+           
+           <input type="date" id="datee">
+            
+           <select name="SelectCategory" id="optiont">
+            <option value="">Select Category</option>
+            <option value="Sports">Sports</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Finance">Finance</option>
+            <option value="Education">Education</option>
+           </select>
+
+           <input type="Number" placeholder="Book price"  id="price">
+
+           <button id="submitt" onclick="submit()">Submit</button>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+<script>
+
+
+let arr=[];
+
+function submit(){
+
+
+
+let Bookname=document.getElementById("name").value
+let Authorname=document.getElementById("author").value
+let Description=document.getElementById("description").value
+let Dates=document.getElementById("datee").value
+let Category=document.getElementById("optiont").value
+let Price=document.getElementById("price").value
+
+let bookobj={
+
+   BookName: Bookname,
+   AuthorName:Authorname,
+   Description:Description,
+   Dates:Dates,
+   Category:Category,
+   Price:Price
+            }
+
+arr.push(bookobj);
+
+
+localStorage.setItem("book-list", JSON.stringify(arr));
+    
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+</script>
