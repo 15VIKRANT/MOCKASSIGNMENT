@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+
+        #filter >input{
+            display: block;
+        }
+        td{
+            height: 15px;
+            border: 1px solid black;
+            margin: 3px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div>
+        <div>
+            <select name="sort" id="sorting" value="sorted">
+              <option value="">sort by price</option>
+              <option value="low">low to high</option>
+              <option value="high">high to low</option>
+    
+              </select>
+        </div>
+
+
+        <div id="filter">
+           <input type="checkbox" value="Sports" placeholder="Sports" id="sport" onclick="filter1()"><span>Sports</span>
+           <input type="checkbox"  value="Fiction" placeholder="Fiction" id="fiction" onclick="filter2()"><span>Fiction</span>
+           <input type="checkbox"  value="Finanace" placeholder="Finance" id="finance" onclick="filter3()"><span>Finance</span>
+           <input type="checkbox"  value="Education" placeholder="Education" id="education" onclick="filter4()"><span name="education">Education</span>
+        </div>
+    </div>
+
+
+    <div id="Dashboard">
+  <table id="result">
+    <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Description</th>
+        <th>Added Date</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Buy</th>
+       <th>Bookmark</th>
+    </tr>
+    </table>
+    </div>
+</body>
+</html>
+
+<script>
+
+
+
+
+let data=JSON.parse(localStorage.getItem("book-list")) || [];
+console.log(data)
+
+
+document.getElementById("sorting").addEventListener("change",()=>{
+
+    sort(data)
+
+});
+
+function sort(){
+
+    console.log("sort")
+   
+  var selected = document.getElementById("sorting").value;
+  if (selected == "high") {
+    data.sort(function (a, b) {
+      return b.Price - a.Price;
+    });
+  } else {
+    data.sort(function (a, b) {
+      return a.Price - b.Price;
+    });
+  }
+ getData(data);
+
+}
+
+
+
+function filter1() {
+       
+       var selected = document.getElementById("sport").value;
+       var data1= data.filter(function(elem) {
+           return elem.Category == selected;
+       }); 
+       getData(data1);
+    }
+
+    function filter2() {
+       
+       var selected = document.getElementById("fiction").value;
+       var data2= data.filter(function(elem) {
+           return elem.Category == selected;
+       }); 
+       getData(data2);
+    }
+
+    function filter3() {
+       
+       var selected = document.getElementById("finance").value;
+       var data3= data.filter(function(elem) {
+           return elem.Category == selected;
+       }); 
+       getData(data3);
+    }
+    
+    
+        
+
+     
+    function filter4() {
+       
+       var selected = document.getElementById("education").value;
+       var data4= data.filter(function(elem) {
+           return elem.Category == selected;
+       }); 
+       getData(data4);
+    }
+
+
+
+
+function getData(data){
+
+    
+
+let tables=document.getElementById("result");
+    
+tables.innerHTML="";
+
+
+    data?.map((e)=>{
+
+        console.log(e)
+
+  let roww=document.createElement("tr");
+  let name=document.createElement("td");
+        name.innerHTML=e.AuthorName;
+     let author=document.createElement("td");
+       author.innerHTML=e.BookName;
+     let description=document.createElement("td");
+       description.innerHTML=e.Description;
+     let Date=document.createElement("td");
+           Date.innerHTML=e.Dates;
+     let Category=document.createElement("td");
+        Category.innerHTML=e.Category
+     let Price=document.createElement("td");
+           Price.innerHTML=e.Price;
+     let Buy=document.createElement("td");
+           Buy.innerHTML="Buy"
+     let Bookmark=document.createElement("td");
+         Bookmark.innerHTML="Bookmark"
+
+       
+  roww.append(name,author,description,Date,Category, Price, Buy, Bookmark);
+      tables.append(roww);
+
+  })
+}
+getData(data);
+
+
+
+
+</script>
