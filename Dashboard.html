@@ -7,6 +7,17 @@
     <title>Dashboard</title>
     <style>
 
+
+
+
+
+     #navbar{
+            display: flex;
+            justify-content: space-around;
+            background-color: rgb(242, 225, 199);
+        }
+
+
         #filter >input{
             display: block;
         }
@@ -15,12 +26,55 @@
             border: 1px solid black;
             margin: 3px;
         }
+
+        #filter >div{
+            margin: 3px;
+            background-color: rgb(163, 185, 177);
+            height: 20px;
+        }
+
+   #container{
+    display: flex;
+    justify-content: space-around;
+   }
+
+   #filter{
+    display: flex;
+    height: 20px;
+    
+   }
+        
+   th{
+    height: 15px;
+            border: 1px solid black;
+            margin: 3px;
+   }
+   h2{
+                text-align: center;
+             }
+    
     </style>
 </head>
 <body>
 
 
-    <div>
+    
+    <h2>Library Managemenet System</h2>
+
+<br>
+
+    <div id="navbar">
+
+        <h3  onclick="window.location.href='index.html'"> Home</h3>
+        <h3 onclick="window.location.href='Dashboard.html'">Dashboard</h3>
+        <h3  onclick="window.location.href='Mybooks.html'">My Books</h3>
+        <h3 onclick="window.location.href='Bookmarks.html'">Bookmark</h3>
+    </div>
+
+
+
+    <br><br>
+    <div  id="container">
         <div>
             <select name="sort" id="sorting" value="sorted">
               <option value="">sort by price</option>
@@ -29,20 +83,42 @@
     
               </select>
         </div>
-
+                  
+             
 
         <div id="filter">
-           <input type="checkbox" value="Sports" placeholder="Sports" id="sport" onclick="filter1()"><span>Sports</span>
-           <input type="checkbox"  value="Fiction" placeholder="Fiction" id="fiction" onclick="filter2()"><span>Fiction</span>
-           <input type="checkbox"  value="Finanace" placeholder="Finance" id="finance" onclick="filter3()"><span>Finance</span>
-           <input type="checkbox"  value="Education" placeholder="Education" id="education" onclick="filter4()"><span name="education">Education</span>
+            <div> 
+                <input type="checkbox" value="Sports" placeholder="Sports" id="sport" onclick="filter1()"><span>Sports</span>
+            </div>
+            <div> 
+                <input type="checkbox"  value="Fiction" placeholder="Fiction" id="fiction" onclick="filter2()"><span>Fiction</span>
+            </div>
+            <div> 
+         <input type="checkbox"  value="Finance" placeholder="Finance" id="finance" onclick="filter3()"><span>Finance</span>
+            </div>
+            <div> 
+                <input type="checkbox"  value="Education" placeholder="Education" id="education" onclick="filter4()"><span name="education">Education</span>
+ </div>
+
         </div>
     </div>
-
+ <br><br>
 
     <div id="Dashboard">
+        <table>
+            <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Description</th>
+            <th>Added Date</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Buy</th>
+           <th>Bookmark</th>
+        </tr>
+        </table>
   <table id="result">
-    <tr>
+    <!-- <tr>
         <th>Name</th>
         <th>Author</th>
         <th>Description</th>
@@ -51,7 +127,7 @@
         <th>Price</th>
         <th>Buy</th>
        <th>Bookmark</th>
-    </tr>
+    </tr> -->
     </table>
     </div>
 </body>
@@ -63,7 +139,7 @@
 
 
 let data=JSON.parse(localStorage.getItem("book-list")) || [];
-console.log(data)
+//console.log(data)
 
 
 document.getElementById("sorting").addEventListener("change",()=>{
@@ -74,7 +150,7 @@ document.getElementById("sorting").addEventListener("change",()=>{
 
 function sort(){
 
-    console.log("sort")
+   // console.log("sort")
    
   var selected = document.getElementById("sorting").value;
   if (selected == "high") {
@@ -144,9 +220,9 @@ let tables=document.getElementById("result");
 tables.innerHTML="";
 
 
-    data?.map((e)=>{
+    data?.map((e,i)=>{
 
-        console.log(e)
+        //console.log(e)
 
   let roww=document.createElement("tr");
   let name=document.createElement("td");
@@ -163,8 +239,41 @@ tables.innerHTML="";
            Price.innerHTML=e.Price;
      let Buy=document.createElement("td");
            Buy.innerHTML="Buy"
+
+   Buy.addEventListener("click", ()=>{
+
+        let buyobject=[];
+        
+        buyobject.push(e);
+        localStorage.setItem("buy-list", JSON.stringify(buyobject));
+    
+        //data.splice(i,1);
+       
+          btntask(i)
+
+
+   })
+    
+
+
+
      let Bookmark=document.createElement("td");
          Bookmark.innerHTML="Bookmark"
+
+         Bookmark.addEventListener("click", ()=>{
+
+         let bookmarkobject=[];
+
+       bookmarkobject.push(e);
+        localStorage.setItem("bookmark-list", JSON.stringify(bookmarkobject));
+
+           bookmarktask(i)
+
+
+})
+
+
+
 
        
   roww.append(name,author,description,Date,Category, Price, Buy, Bookmark);
@@ -174,6 +283,25 @@ tables.innerHTML="";
 }
 getData(data);
 
+
+
+        function btntask(index){
+            console.log(data)
+            data.splice(index,1);
+           
+        localStorage.setItem("book-list",JSON.stringify(data));
+         window.location.reload() 
+            }
+
+
+            
+        function bookmarktask(index){
+            console.log(data)
+            data.splice(index,1);
+           
+        localStorage.setItem("book-list",JSON.stringify(data));
+         window.location.reload() 
+            }
 
 
 

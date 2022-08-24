@@ -13,29 +13,47 @@
         #navbar{
             display: flex;
             justify-content: space-around;
+            background-color: rgb(242, 225, 199);
         }
+    
 
-        #navbar >div{
-            height: 50px;
-            width: 60px;
-
+        #forms{
+            border: 2px solid black;
+           
         }
+      
+        #forms >div{
+          
+            width: 200px;
+            margin: auto;
+            align-items: center;
+            align-content: center;
+            align-self: center;
+             }
+             h2{
+                text-align: center;
+             }
     </style>
 </head>
 <body>
+
+    <h2>Library Managemenet System</h2>
+
+<br>
+
     <div id="navbar">
 
-        <div> Home</div>
-        <div onclick="window.location.href='Dashboard.html'">Dashboard</div>
-        <div>My Books</div>
-        <div>Bookmark</div>
+        <h3  onclick="window.location.href='index.html'"> Home</h3>
+        <h3 onclick="window.location.href='Dashboard.html'">Dashboard</h3>
+        <h3  onclick="window.location.href='Mybooks.html'">My Books</h3>
+        <h3 onclick="window.location.href='Bookmarks.html'">Bookmark</h3>
     </div>
 
 
 
     <div id="forms">
         <div>
-        <h4>Library Managemenet System</h4>
+       
            <input type="text" id="name" placeholder="Book Name">
            
            <input type="text" id="author" placeholder="Author Name">

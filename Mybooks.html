@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mybook</title>
+
+    <style>
+         #navbar{
+            display: flex;
+            justify-content: space-around;
+            background-color: rgb(242, 225, 199);
+        }
+
+        th{
+    height: 15px;
+            border: 1px solid black;
+            margin: 3px;
+   }
+
+
+   td{
+            height: 15px;
+            border: 1px solid black;
+            margin: 3px;
+        }
+        h2{
+                text-align: center;
+             }
+
+    </style>
+</head>
+<body>
+
+    <h2>Library Managemenet System</h2>
+
+<br>
+
+
+    <div id="navbar">
+
+        <h3  onclick="window.location.href='index.html'"> Home</h3>
+        <h3 onclick="window.location.href='Dashboard.html'">Dashboard</h3>
+        <h3  onclick="window.location.href='Mybooks.html'">My Books</h3>
+        <h3 onclick="window.location.href='Bookmarks.html'">Bookmark</h3>
+    </div>
+
+    <br><br>
+
+
+    <div id="Dashboard">
+        <table>
+            <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Description</th>
+            <th>Added Date</th>
+            <th>Category</th>
+            <th>Price</th>
+        </tr>
+        </table>
+  <table id="result">
+    <!-- <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Description</th>
+        <th>Added Date</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Buy</th>
+       <th>Bookmark</th>
+    </tr> -->
+    </table>
+    </div>
+
+</body>
+</html>
+<script>
+
+
+let result=JSON.parse(localStorage.getItem("buy-list")) || [];
+
+function getData(result){
+
+    
+
+let tables=document.getElementById("result");
+    
+tables.innerHTML="";
+
+
+    result?.map((e,i)=>{
+
+      
+
+  let roww=document.createElement("tr");
+  let name=document.createElement("td");
+        name.innerHTML=e.AuthorName;
+     let author=document.createElement("td");
+       author.innerHTML=e.BookName;
+     let description=document.createElement("td");
+       description.innerHTML=e.Description;
+     let Date=document.createElement("td");
+           Date.innerHTML=e.Dates;
+     let Category=document.createElement("td");
+        Category.innerHTML=e.Category
+     let Price=document.createElement("td");
+           Price.innerHTML=e.Price;
+
+       
+  roww.append(name,author,description,Date,Category, Price);
+      tables.append(roww);
+
+  })
+}
+getData(result);
+</script>
